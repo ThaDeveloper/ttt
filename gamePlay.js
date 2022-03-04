@@ -1,13 +1,13 @@
-const statusText = document.querySelector(".status");
+const statusElement = document.querySelector(".status");
 
 let gameRunning = true;
 let currentPlayer = "1";
 let currentState = Array(25).fill("");
 
-const winMessage = () => `Player ${currentPlayer} has won!`;
+const winMessage = () => `Player ${currentPlayer} has won!!!`;
 const drawMessage = () => `Game ended in a draw!`;
 const getCurrentPlayerTurn = () => `Player ${currentPlayer} turn`;
-statusText.innerHTML = getCurrentPlayerTurn();
+statusElement.innerHTML = getCurrentPlayerTurn();
 
 const winOptions = [
   [0, 1, 2, 3, 4],
@@ -48,7 +48,7 @@ const switchPlayers = (player) => {
 
 const handlePlayerChange = () => {
   switchPlayers(currentPlayer);
-  statusText.innerHTML = getCurrentPlayerTurn();
+  statusElement.innerHTML = getCurrentPlayerTurn();
 };
 
 const chooseWinner = () => {
@@ -74,13 +74,15 @@ const chooseWinner = () => {
   // end game if win or draw
 
   if (roundWon) {
-    statusText.innerHTML = winMessage();
+    statusElement.innerHTML = winMessage();
+    statusElement.style.color = "green";
     gameRunning = false;
     return;
   }
   let roundDraw = !currentState.includes("");
   if (roundDraw) {
-    statusText.innerHTML = drawMessage();
+    statusElement.innerHTML = drawMessage();
+    statusElement.style.color = "orange";
     gameRunning = false;
     return;
   }
@@ -107,7 +109,8 @@ const resetGame = () => {
   gameRunning = true;
   currentPlayer = "1";
   currentState = Array(25).fill("");
-  statusText.innerHTML = getCurrentPlayerTurn();
+  statusElement.innerHTML = getCurrentPlayerTurn();
+  statusElement.style.color = "black";
   document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
 };
 
